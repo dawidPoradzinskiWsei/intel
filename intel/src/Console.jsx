@@ -14,7 +14,9 @@ const Console = () => {
                 e.innerHTML = "C:\\Dayid>" + consoleValue;
 
                 consRef.current.appendChild(e);
-                CheckCommend(consoleValue);
+                e = document.createElement('span');
+                e.innerHTML = (CheckCommend(consoleValue));
+                consRef.current.appendChild(e);
                 event.target.value = "";
             }
         }
@@ -30,12 +32,10 @@ const Console = () => {
 
         switch(props.substring(0, length).toUpperCase()){
             case "MOV":{
-                console.log("true");
-                break;
+                return "Command found";
             }
             default: {
-                console.log("command not found");
-                break;
+                return "command not found";
             }
         }
     }
