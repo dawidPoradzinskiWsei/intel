@@ -1,12 +1,14 @@
 import './App.css';
 import { Outlet } from "react-router-dom";
 import SingleByte from './variable/SingleByte';
+import { useEffect, useState } from 'react';
 
 function App() {
-  let singleBytes0 = [];
-  let singleBytes1 = [];
+  const [hBytes, setHBytes] = useState([]);
+  const [lBytes, setLBytes] = useState([]);
 
-
+  let hTab = [];
+  let lTab = [];
   for(let i = 0; i < 4; i++)
   {
     let letter = 'A';
@@ -14,15 +16,20 @@ function App() {
     letter += i;
     letter = String.fromCharCode(letter);
     console.log(letter);
-    singleBytes0.push(<SingleByte key={i} firstLetter={letter} secondLetter="H"/>);
-    singleBytes1.push(<SingleByte key={i} firstLetter={letter} secondLetter="L"/>);
+    hTab.push(<SingleByte id={i} firstLetter={letter} secondLetter="H" data={Math.floor(Math.random() * 255)}></SingleByte>);
+    lTab.push(<SingleByte id={i} firstLetter={letter} secondLetter="L" data={Math.floor(Math.random() * 255)}></SingleByte>);
   }
+  
+  useEffect(()=>{
+    setHBytes(hTab);
+    setLBytes(lTab);
+  }, []);
 
   return (
     <div className="flex w-screen h-screen bg-gradient-to-tr from-stone-600 to-zinc-800">
 
         <div className='hidden lg:flex lg:w-[25%] h-full lg:flex-col lg:justify-center lg:gap-12 lg:p-4 lg:items-center'>
-          {singleBytes0}
+          {hBytes}
         </div>
 
         <div className='flex w-screen px-10 lg:px-0 lg:w-[50%] h-full items-center'>
@@ -32,7 +39,7 @@ function App() {
         </div>
 
         <div className='hidden lg:flex lg:w-[25%] h-full lg:flex-col lg:justify-center lg:gap-12 lg:p-4 lg:items-center'>
-          {singleBytes1}
+          {lBytes}
         </div>
 
     </div>
